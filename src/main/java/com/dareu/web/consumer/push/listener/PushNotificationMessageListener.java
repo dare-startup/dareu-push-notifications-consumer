@@ -1,7 +1,7 @@
 package com.dareu.web.consumer.push.listener;
 import com.amazon.sqs.javamessaging.message.SQSTextMessage;
 import com.dareu.web.consumer.push.service.PushNotificationsService;
-import com.dareu.web.dto.jms.PushNotificationMessage;
+import com.dareu.web.dto.jms.QueueMessage;
 import com.google.gson.Gson;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,8 +23,8 @@ public class PushNotificationMessageListener {
             SQSTextMessage sqsMessage = (SQSTextMessage)message;
             try{
                 final String payload = sqsMessage.getText();
-                PushNotificationMessage pushNotificationMessage = new Gson().fromJson(payload, PushNotificationMessage.class);
-                pushNotificationsService.send(pushNotificationMessage.getToken(), pushNotificationMessage.getNotificationMessage());
+                QueueMessage queueMessage = new Gson().fromJson(payload, QueueMessage.class);
+                pushNotificationsService.send(queueMessage.getToken(), queueMessage.getPayloadMessage());
             }catch(JMSException ex){
                 //TODO: send message to errors_queue
                 logger.error(ex.getMessage());

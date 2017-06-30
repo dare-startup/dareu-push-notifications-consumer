@@ -1,7 +1,7 @@
 package com.dareu.web.consumer.push.service.impl;
 
 import com.dareu.web.consumer.push.service.PushNotificationsService;
-import com.dareu.web.dto.jms.NotificationMessage;
+import com.dareu.web.dto.jms.PayloadMessage;
 import de.bytefish.fcmjava.client.FcmClient;
 import de.bytefish.fcmjava.model.enums.PriorityEnum;
 import de.bytefish.fcmjava.model.options.FcmMessageOptions;
@@ -25,7 +25,7 @@ public class PushNotificationsServiceImpl implements PushNotificationsService {
             .setPriorityEnum(PriorityEnum.High)
             .build();
 
-    public void send(String token, NotificationMessage pushNotificationMessage){
-        fcmClient.send(new DataUnicastMessage(options, token, pushNotificationMessage));
+    public void send(String token, PayloadMessage pushPayloadMessage){
+        fcmClient.send(new DataUnicastMessage(options, token, pushPayloadMessage));
     }
 }
