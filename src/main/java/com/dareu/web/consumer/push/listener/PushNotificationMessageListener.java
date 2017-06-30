@@ -5,15 +5,17 @@ import com.dareu.web.dto.jms.QueueMessage;
 import com.google.gson.Gson;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
 import javax.jms.JMSException;
 
-@Component
+@Component(value = "pushNotificationMessageListener")
 public class PushNotificationMessageListener {
 
     @Autowired
+    @Qualifier("pushNotificationsService")
     private PushNotificationsService pushNotificationsService;
 
     private final Logger logger = Logger.getLogger(getClass());
@@ -25,11 +27,9 @@ public class PushNotificationMessageListener {
                 final String payload = sqsMessage.getText();
                 QueueMessage queueMessage = new Gson().fromJson(payload, QueueMessage.class);
                 pushNotificationsService.send(queueMessage.getToken(), queueMessage.getPayloadMessage());
-            }catch(JMSException ex){
-                //TODO: send message to errors_queue
+            } catch(JMSException ex){
                 logger.error(ex.getMessage());
-            }catch(Exception ex){
-                //TODO: send message to error queue with different payload
+            } catch(Exception ex){
                 logger.error(ex.getMessage());
             }
         }else{

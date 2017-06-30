@@ -8,10 +8,12 @@ import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.dareu.web.consumer.push.listener.PushNotificationMessageListener;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.jms.annotation.EnableJms;
 import org.springframework.jms.listener.DefaultMessageListenerContainer;
 import org.springframework.jms.listener.adapter.MessageListenerAdapter;
@@ -31,6 +33,7 @@ public class JmsConfiguration {
     private String destinationName;
 
     @Autowired
+    @Qualifier("pushNotificationMessageListener")
     private PushNotificationMessageListener pushNotificationMessageListener;
 
     @Bean(name = "sqsConnectionFactory")
