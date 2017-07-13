@@ -18,7 +18,7 @@ public class CommonBeansConfiguration {
     @Value("${com.dareu.web.message.properties}")
     private String propertiesFile;
 
-    private Gson gson;
+    private static Gson gson;
 
     @Bean(name = "fcmClient")
     public FcmClient fcmClient(){

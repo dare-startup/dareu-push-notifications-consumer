@@ -1,7 +1,8 @@
 package com.dareu.web.consumer.push.service;
 
-import com.dareu.web.dto.jms.PayloadMessage;
+import com.amazon.sqs.javamessaging.message.SQSTextMessage;
+import com.dareu.web.consumer.push.exception.PushNotificationException;
 
 public interface PushNotificationsService {
-    public void send(String token, PayloadMessage pushPayloadMessage);
+    public void send(SQSTextMessage request)throws PushNotificationException;
 }
