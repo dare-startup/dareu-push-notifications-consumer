@@ -4,7 +4,7 @@ import com.amazon.sqs.javamessaging.message.SQSTextMessage;
 import com.dareu.web.consumer.push.exception.PushNotificationException;
 import com.dareu.web.consumer.push.service.PushNotificationsService;
 import com.google.gson.Gson;
-import com.messaging.dto.PushNotificationRequest;
+import com.messaging.dto.push.PushNotificationRequest;
 import de.bytefish.fcmjava.client.FcmClient;
 import de.bytefish.fcmjava.model.enums.PriorityEnum;
 import de.bytefish.fcmjava.model.options.FcmMessageOptions;
